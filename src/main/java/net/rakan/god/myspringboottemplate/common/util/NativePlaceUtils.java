@@ -1,7 +1,7 @@
 package net.rakan.god.myspringboottemplate.common.util;
 
 /**
- * 通过身份证前几位获取省市区
+ * 省市区工具类
  *
  * @Author LiChangRui on 2023/7/18 9:29
  */
