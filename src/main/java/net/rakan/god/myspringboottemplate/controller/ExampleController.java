@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExampleController {
 
 
+    /**
+     * 测试sentinel流控
+     *
+     * @Author LiChangRui on 2023/8/1 15:01
+     */
     @SentinelResource(value = SentinelRuleConfig.RESOURCE_NAME
             , blockHandlerClass = SentinelFlowHandler.class
             , blockHandler = "resourceName")
