@@ -10,7 +10,7 @@ public class MySpringbootTemplateApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MySpringbootTemplateApplication.class, args);
-        System.out.println("项目启动成功！");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n项目启动成功！");
     }
 
 //    @Bean

@@ -14,7 +14,8 @@ import io.netty.handler.codec.http.websocketx.WebSocketCloseStatus;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 
 /**
- * @author Administrator
+ *
+ * @Author LiChangRui on 2023/8/14 17:56
  */
 @Sharable
 @Component
@@ -22,16 +23,17 @@ public class WebsocketMessageHandler extends SimpleChannelInboundHandler<WebSock
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebsocketMessageHandler.class);
 
-//	@Autowired
-//	private DiscardService discardService;
-
+    /**
+     * 收到数据后的业务层处理
+     *
+     * @Author LiChangRui on 2023/8/14 17:55
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame msg) throws Exception {
         if (msg instanceof TextWebSocketFrame) {
             TextWebSocketFrame textWebSocketFrame = (TextWebSocketFrame) msg;
-//			// 业务层处理数据
-//			this.discardService.discard(textWebSocketFrame.text());
-            System.out.println("业务层处理数据！");
+            // 收到数据
+            System.out.println(textWebSocketFrame.text());
             // 响应客户端
             ctx.channel().writeAndFlush(new TextWebSocketFrame("我收到了你的消息：" + System.currentTimeMillis()));
         } else {

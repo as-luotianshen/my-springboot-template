@@ -1,10 +1,6 @@
 server:
   port: 9060
-
-#logging:
-#  level:
-#    root: DEBUG
-
+# netty配置
 management:
   endpoints:
     web:
@@ -13,7 +9,7 @@ management:
   endpoint:
     shutdown:
       enabled: true
-
+# netty配置
 netty:
   websocket:
     # Websocket服务端口
@@ -24,6 +20,24 @@ netty:
     max-frame-size: 10240
     # URI路径
     path: /channel
+spring:
+  # kafka配置
+  kafka:
+    bootstrap-servers: 182.92.215.222:9092
+    consumer:
+      # 配置消费者消息offset是否自动重置(消费者重连会能够接收最开始的消息)
+      auto-offset-reset: earliest
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 重试次数
+      retries: 3
+# kafka系统参数
+kafka:
+  # 主题名称
+  topic-name:
+    # 新增告警信息时触发
+    create-alarm-info: example-topic-name1
+    create-alarm-info2: example-topic-name2
 
 
 

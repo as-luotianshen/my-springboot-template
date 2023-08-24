@@ -1,20 +1,21 @@
 package net.rakan.god.myspringboottemplate.controller;
 
-import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
 import net.rakan.god.myspringboottemplate.common.config.SentinelRuleConfig;
 import net.rakan.god.myspringboottemplate.common.handler.SentinelDegradeHandler;
 import net.rakan.god.myspringboottemplate.common.handler.SentinelFlowHandler;
+import net.rakan.god.myspringboottemplate.common.service.KafkaProducerService;
 import net.rakan.god.myspringboottemplate.common.vo.Result;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+
+
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/example")
 public class ExampleController {
-
 
     /**
      * 测试sentinel流控
@@ -43,4 +44,26 @@ public class ExampleController {
         throw new RuntimeException();
 //        return Result.ok();
     }
+
+
+    @Value("${kafka.topic-name.create-alarm-info}")
+    String myTopic;
+    @Value("${kafka.topic-name.create-alarm-info2}")
+    String myTopic2;
+
+    @Autowired
+    private KafkaProducerService kafkaProducerService;
+    private AtomicLong atomicLong = new AtomicLong();
+
+
+    @GetMapping("/test")
+    public void sendMessageToKafkaTopic(String name) {
+        for (int i = 0; i < 10; i++) {
+            kafkaProducerService.sendMessage(myTopic, name + i);
+
+        }
+//        this.producer.sendMessage(myTopic2, new Book(atomicLong.addAndGet(1), name));
+        System.out.println();
+    }
+
 }
